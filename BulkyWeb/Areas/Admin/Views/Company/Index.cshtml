@@ -2,7 +2,7 @@
     <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">Product List</h2>
+                <h2 class="text-white py-2">Company List</h2>
             </div>
         </div>
     </div>
@@ -11,8 +11,8 @@
             <div class="col-6">
             </div>
             <div class="col-6 text-end">
-                <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
-                    <i class="bi bi-plus-circle"></i> Create New Product
+                <a asp-controller="Company" asp-action="Upsert" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Create New Company
                 </a>
             </div>
         </div>
@@ -22,19 +22,19 @@
             <thead>
                 <tr>
                     <th>
-                        Title
+                        Name
                     </th>
                     <th>
-                        ISBN
+                        Address
                     </th>
                     <th>
-                        Price
+                        City
                     </th>
                     <th>
-                        Author
+                        State
                     </th>
                     <th>
-                        Category
+                        Phone Number
                     </th>
                     <th>
 
@@ -46,5 +46,5 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/product.js"></script>
+    <script src="~/js/company.js"></script>
 }
