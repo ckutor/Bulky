@@ -171,6 +171,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                     _unitOfWork.OrderHeader.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
                     _unitOfWork.Save();
                 }
+                HttpContext.Session.Clear();
             }
             List<ShoppingCart> shoppingCartItems = _unitOfWork.ShoppingCart
                 .GetAll(u=>u.ApplicationUserId==orderHeader.ApplicationUserId).ToList();
@@ -196,9 +197,10 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
         public IActionResult Minus(int cartId)
         {
-            var cartItemFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
+            var cartItemFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId, tracked: true);
             if (cartItemFromDb.Count <= 1)
             {
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cartItemFromDb.ApplicationUserId).Count() - 1);
                 _unitOfWork.ShoppingCart.Remove(cartItemFromDb);
             }
             else
@@ -214,9 +216,10 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
         public IActionResult Remove(int cartId)
         {
-            var cartItemFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
+            var cartItemFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId, tracked: true);
             if (cartItemFromDb != null)
             {
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cartItemFromDb.ApplicationUserId).Count()-1);
                 _unitOfWork.ShoppingCart.Remove(cartItemFromDb);
                 _unitOfWork.Save();
             }
